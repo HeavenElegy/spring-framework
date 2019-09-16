@@ -42,13 +42,18 @@ import org.springframework.util.StringUtils;
 /**
  * Default implementation of the {@link BeanDefinitionDocumentReader} interface that
  * reads bean definitions according to the "spring-beans" DTD and XSD format
- * (Spring's default XML bean definition format).
+ * (Spring's default XML bean definition format).<br>
+ * TRANSLATE 接口{@link BeanDefinitionDocumentReader}的默认实现,它会按照"spring-beans"的DTD与XSD格式,读取Bean定义.<br>
  *
  * <p>The structure, elements, and attribute names of the required XML document
  * are hard-coded in this class. (Of course a transform could be run if necessary
  * to produce this format). {@code <beans>} does not need to be the root
  * element of the XML document: this class will parse all bean definition elements
- * in the XML file, regardless of the actual root element.
+ * in the XML file, regardless of the actual root element.<br>
+ * TRANSLATE 使用硬编码的方式,定义了XML文档需要的结构,元素,属性名在当前类中.(当然,在需要的时候,可以通过转换产生这种格式).
+ * TRANSLATE XML文档的根元素的{@code <beans>}并不是必须的:这个类将会解析XML文件中全部Bean定义元素,并注册到实际的根元素中.<br>
+ *
+ * EFFECT 总的来说,这个类就是负责对{@code beans}标签及其内部的全部基础标签的全部解析工作.对于第三方以及自定义标签,将会调用其对应的解析类.<br>
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -86,9 +91,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 	/**
 	 * This implementation parses bean definitions according to the "spring-beans" XSD
-	 * (or DTD, historically).
+	 * (or DTD, historically).<br>
+	 * TRANSLATE 这个实现根据"spring-beans"的XSD(或DTD, 更高级的)解析Bean定义.<br>
 	 * <p>Opens a DOM Document; then initializes the default settings
-	 * specified at the {@code <beans/>} level; then parses the contained bean definitions.
+	 * specified at the {@code <beans/>} level; then parses the contained bean definitions.<br>
+	 * TRANSLATE 打开一个DOM文档;在这之后,指定{@code <beans/>}级别并进行初始化默认设置;再之后,解析包含在内的Bean定义.
 	 */
 	@Override
 	public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) {

@@ -389,7 +389,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 
 		try {
+			// EFFECT 加载文档
 			Document doc = doLoadDocument(inputSource, resource);
+			// EFFECT 进行Bean注册(文档对象, EncodedResource对象)
 			int count = registerBeanDefinitions(doc, resource);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
@@ -496,28 +498,39 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Register the bean definitions contained in the given DOM document.
-	 * Called by {@code loadBeanDefinitions}.
+	 * Called by {@code loadBeanDefinitions}.<br>
+	 * TRANSLATE 注册给予的DOM文档中的Bean定义.<br>
 	 * <p>Creates a new instance of the parser class and invokes
-	 * {@code registerBeanDefinitions} on it.
-	 * @param doc the DOM document
-	 * @param resource the resource descriptor (for context information)
-	 * @return the number of bean definitions found
-	 * @throws BeanDefinitionStoreException in case of parsing errors
+	 * {@code registerBeanDefinitions} on it.<br>
+	 * TRANSLATE 创建一个解析器类实例并调用他的{@code registerBeanDefinitions}.<br>
+	 * @param doc the DOM document	TRANSLATE DOM文档
+	 * @param resource the resource descriptor (for context information)	TRANSLATE 资源描述器
+	 * @return the number of bean definitions found	TRANSLATE 发现Bean定义的数量
+	 * @throws BeanDefinitionStoreException in case of parsing errors	TRANSLATE 在解析错误的情况下
 	 * @see #loadBeanDefinitions
 	 * @see #setDocumentReaderClass
 	 * @see BeanDefinitionDocumentReader#registerBeanDefinitions
 	 */
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
+		// EFFECT 创建一个Bean定义文档读取器.这个读取器将被用作实际的Bean定义加载.默认情况下,它是DefaultBeanDefinitionDocumentReader实例
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
+		// EFFECT getRegistry()返回当前以成员变量保存的DefaultListableBeanFactory,它实现了接口BeanDefinitionRegistry
+		// EFFECT 获取当前DefaultListableBeanFactory内已经定义的Bean的总数.用于进行后续执行中计算新注册的Bean定义数量
 		int countBefore = getRegistry().getBeanDefinitionCount();
+		// EFFECT 使用进行Bean定义注册
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
+		// EFFECT 返回发现Bean的数量
 		return getRegistry().getBeanDefinitionCount() - countBefore;
 	}
 
 	/**
 	 * Create the {@link BeanDefinitionDocumentReader} to use for actually
-	 * reading bean definitions from an XML document.
-	 * <p>The default implementation instantiates the specified "documentReaderClass".
+	 * reading bean definitions from an XML document.<br>
+	 * TRANSLATE 创建用于从XML文档中读取Bean定义的实际操作者{@link BeanDefinitionDocumentReader}
+	 * <p>The default implementation instantiates the specified "documentReaderClass".<br>
+	 * TRANSLATE 实例使用"documentReaderClass"(成员变量)指定默认的实现 <br>
+	 * EFFECT 这个操作只是进行对成员变量{@link #documentReaderClass}的具体类型的动态化委托
+	 * EFFECT 这个方法在默认情况下,会返回{@link DefaultBeanDefinitionDocumentReader}类的实例
 	 * @see #setDocumentReaderClass
 	 */
 	protected BeanDefinitionDocumentReader createBeanDefinitionDocumentReader() {
@@ -525,7 +538,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * Create the {@link XmlReaderContext} to pass over to the document reader.
+	 * Create the {@link XmlReaderContext} to pass over to the document reader.<br>
+	 * TRANSLATE 为文档读取器创建{@link XmlReaderContext} <br>
+	 * EFFECT {@link XmlReaderContext} 的具体作用尚未确认.如果不出意外的话,他主要负责对Bean加载期间的个模块的通知
 	 */
 	public XmlReaderContext createReaderContext(Resource resource) {
 		return new XmlReaderContext(resource, this.problemReporter, this.eventListener,
@@ -533,7 +548,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * Lazily create a default NamespaceHandlerResolver, if not set before.
+	 * Lazily create a default NamespaceHandlerResolver, if not set before.<br>
+	 * TRANSLATE  如果在调用前,NamespaceHandlerResolver没有被加载,则进行懒加载.<br>
+	 * EFFECT {@link NamespaceHandlerResolver}的作用未知,可能是用来获取XML文档中的命名空间解析器的
 	 * @see #createDefaultNamespaceHandlerResolver()
 	 */
 	public NamespaceHandlerResolver getNamespaceHandlerResolver() {

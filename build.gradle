@@ -1,5 +1,6 @@
 buildscript {
 	repositories {
+		maven { url "https://maven.aliyun.com/repository/spring-plugin" }
 		maven { url "https://repo.spring.io/plugins-release" }
 	}
 	dependencies {
@@ -149,6 +150,8 @@ configure(allprojects) { project ->
 	}
 
 	repositories {
+		maven { url "https://maven.aliyun.com/repository/public" }
+		maven { url "https://maven.aliyun.com/repository/spring" }
 		maven { url "https://repo.spring.io/libs-release" }
 		mavenLocal()
 	}
