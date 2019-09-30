@@ -53,16 +53,24 @@ import org.springframework.util.xml.XmlValidationModeDetector;
 /**
  * Bean definition reader for XML bean definitions.
  * Delegates the actual XML document reading to an implementation
- * of the {@link BeanDefinitionDocumentReader} interface.
+ * of the {@link BeanDefinitionDocumentReader} interface.<br>
+ * <font color="#32CD3266">基于XML的bean定义的Bean定义读取器.实际XML文档读取工作委派到{@link BeanDefinitionDocumentReader}接口
+ * 的实现进行</font><br>
  *
  * <p>Typically applied to a
  * {@link org.springframework.beans.factory.support.DefaultListableBeanFactory}
- * or a {@link org.springframework.context.support.GenericApplicationContext}.
+ * or a {@link org.springframework.context.support.GenericApplicationContext}.<br>
+ * <font color="#32CD3266">典型的应用是{@link org.springframework.beans.factory.support.DefaultListableBeanFactory}或
+ * {@link org.springframework.context.support.GenericApplicationContext}.
+ * </font><br>
  *
  * <p>This class loads a DOM document and applies the BeanDefinitionDocumentReader to it.
  * The document reader will register each bean definition with the given bean factory,
  * talking to the latter's implementation of the
- * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry} interface.
+ * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry} interface.<br>
+ * <font color="#32CD3266">这个类会使用BeanDefinitionDocumentReader加载DOM文档.本文档读取器将会使用给予的bean工厂的
+ * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry}的实现注册全部的
+ * bean定义</font><br>
  *
  * @author Juergen Hoeller
  * @author Rob Harrop
